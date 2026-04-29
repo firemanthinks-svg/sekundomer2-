@@ -2,64 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Timer & Sekundomer</title>
-    <link rel="shortcut icon" href="" type="image/x-icon" />
-    <link rel="stylesheet" href="./style.css" />
-
-    <!-- (fontawesome link) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- (end fontawesome link) -->
-</head>
-
-
-
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch & Timer</title>
 
 </head>
 
 <body>
-
-    <div class="box">
-
+    <div class="container">
         <div class="tabs">
-            <button id="swTab" class="active" onclick="showSW()">Sekundomer</button>
-            <button id="tmTab" onclick="showTM()">Timer</button>
+            <button class="tab-btn active" onclick="showSW()" id="swTab">⏱️ Stopwatch</button>
+            <button class="tab-btn" onclick="showTM()" id="tmTab">⏲️ Timer</button>
         </div>
 
-        <!-- SEKUNDOMER -->
+        <!-- Stopwatch Section -->
         <div id="stopwatch">
-            <div class="time" id="swDisplay">00:00:00</div>
-
-            <button class="start" onclick="startSW()">Start</button>
-            <button class="stop" onclick="pauseSW()">Pause</button>
-            <button class="reset" onclick="resetSW()">Reset</button>
+            <div class="display" id="swDisplay">00:00:00</div>
+            <div class="controls">
+                <button class="btn-start" onclick="startSW()">▶ Start</button>
+                <button class="btn-pause" onclick="pauseSW()">⏸ Pause</button>
+                <button class="btn-reset" onclick="resetSW()">🔄 Reset</button>
+            </div>
         </div>
 
-        <!-- TIMER -->
-        <div id="timer" style="display:none;">
-            <input type="number" id="hour" placeholder="Hours" oninput="updateTimer()">
-            <input type="number" id="min" placeholder="Minutes" oninput="updateTimer()">
-            <input type="number" id="sec" placeholder="Sekunds" oninput="updateTimer()">
-
-            <div class="time" id="tmDisplay">00:00:00</div>
-
-            <button class="start" onclick="startTM()">Start</button>
-            <button class="stop" onclick="pauseTM()">Pause</button>
-            <button class="reset" onclick="resetTM()">Reset</button>
+        <!-- Timer Section -->
+        <div id="timer">
+            <div class="display" id="tmDisplay">00:00:00</div>
+            <div class="timer-inputs">
+                <div class="input-group">
+                    <input type="number" id="hour" min="0" max="23" placeholder="0">
+                    <label>Soat</label>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="min" min="0" max="59" placeholder="0">
+                    <label>Daqiqa</label>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="sec" min="0" max="59" placeholder="0">
+                    <label>Sekund</label>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="btn-start" onclick="updateTimer()">⚙ Set</button>
+                <button class="btn-start" onclick="startTM()">▶ Start</button>
+                <button class="btn-pause" onclick="pauseTM()">⏸ Pause</button>
+                <button class="btn-reset" onclick="resetTM()">🔄 Reset</button>
+            </div>
         </div>
-
     </div>
-
-
-
-    <script src="./app.js"></script>
-
-
 </body>
 
 </html>
