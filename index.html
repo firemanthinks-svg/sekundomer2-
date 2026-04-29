@@ -1,58 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stopwatch & Timer</title>
-    <link rel="stylesheet" href="./style.css">
-
+    <title>Timer App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+    <!-- 🔝 REAL VAQT -->
+
+    <!-- 📦 BOX -->
     <div class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showSW()" id="swTab">⏱️ Stopwatch</button>
-            <button class="tab-btn" onclick="showTM()" id="tmTab">⏲️ Timer</button>
-        </div>
+        <div class="top-clock" id="clock">00:00:00</div>
+        <div class="box">
 
-        <!-- Stopwatch Section -->
-        <div id="stopwatch">
-            <div class="display" id="swDisplay">00:00:00</div>
-            <div class="controls">
-                <button class="btn-start" onclick="startSW()">▶ Start</button>
-                <button class="btn-pause" onclick="pauseSW()">⏸ Pause</button>
-                <button class="btn-reset" onclick="resetSW()">🔄 Reset</button>
+            <!-- TAB -->
+            <div class="tabs">
+                <button id="swBtn" class="active">Sekundomer</button>
+                <button id="tmBtn">Timer</button>
             </div>
-        </div>
 
-        <!-- Timer Section -->
-        <div id="timer">
-            <div class="display" id="tmDisplay">00:00:00</div>
-            <div class="timer-inputs">
-                <div class="input-group">
-                    <input type="number" id="hour" min="0" max="23" placeholder="0">
-                    <label>Soat</label>
-                </div>
-                <div class="input-group">
-                    <input type="number" id="min" min="0" max="59" placeholder="0">
-                    <label>Daqiqa</label>
-                </div>
-                <div class="input-group">
-                    <input type="number" id="sec" min="0" max="59" placeholder="0">
-                    <label>Sekund</label>
-                </div>
+            <!-- SEKUNDOMER -->
+            <div id="stopwatchBox">
+                <div class="time" id="stopwatch">00:00:00</div>
             </div>
-            <div class="controls">
-                <button class="btn-start" onclick="updateTimer()">⚙ Set</button>
-                <button class="btn-start" onclick="startTM()">▶ Start</button>
-                <button class="btn-pause" onclick="pauseTM()">⏸ Pause</button>
-                <button class="btn-reset" onclick="resetTM()">🔄 Reset</button>
+
+            <!-- TIMER -->
+            <div id="timerBox" class="hidden">
+                <input type="number" id="hours" placeholder="Hours">
+                <input type="number" id="minutes" placeholder="Minutes">
+                <input type="number" id="seconds" placeholder="Seconds">
+
+                <div class="time" id="timer">00:00:00</div>
             </div>
+
+            <!-- BUTTON -->
+            <div class="buttons">
+                <button class="start" onclick="start()">Start</button>
+                <button class="pause" onclick="pause()">Pause</button>
+                <button class="reset" onclick="reset()">Reset</button>
+            </div>
+
         </div>
     </div>
 
-    <script src="./app.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
