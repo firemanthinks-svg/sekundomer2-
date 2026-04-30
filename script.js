@@ -3,6 +3,8 @@ function pad(n) {
 }
 
 /* 🔝 REAL VAQT */
+let clock = document.getElementById("clock");
+
 function updateClock() {
     let now = new Date();
     clock.innerText =
@@ -13,6 +15,12 @@ updateClock();
 
 /* MODE */
 let mode = "sw";
+
+/* ELEMENTS */
+let swBtn = document.getElementById("swBtn");
+let tmBtn = document.getElementById("tmBtn");
+let stopwatchBox = document.getElementById("stopwatchBox");
+let timerBox = document.getElementById("timerBox");
 
 /* TAB */
 swBtn.onclick = () => {
@@ -32,6 +40,7 @@ tmBtn.onclick = () => {
 };
 
 /* ⏱ SEKUNDOMER */
+let stopwatch = document.getElementById("stopwatch");
 let swTime = 0;
 let swInterval = null;
 
@@ -64,6 +73,11 @@ function resetSW() {
 }
 
 /* ⏳ TIMER */
+let hours = document.getElementById("hours");
+let minutes = document.getElementById("minutes");
+let seconds = document.getElementById("seconds");
+let timer = document.getElementById("timer");
+
 let tmTime = 0;
 let tmInterval = null;
 
@@ -82,7 +96,7 @@ function updateTMDisplay(time) {
     timer.innerText = `${pad(h)}:${pad(m)}:${pad(s)}`;
 }
 
-/* 🔥 LIVE UPDATE (yozishda darrov o‘zgaradi) */
+/* LIVE UPDATE */
 [hours, minutes, seconds].forEach(inp => {
     inp.addEventListener("input", () => {
         if (!tmInterval) {
@@ -92,6 +106,22 @@ function updateTMDisplay(time) {
     });
 });
 
+/* 🔊 ALERT */
+let alarm = document.getElementById("alarmSound");
+let customAlert = document.getElementById("customAlert");
+
+function showAlert() {
+    customAlert.classList.remove("hidden");
+    alarm.currentTime = 0;
+    alarm.play();
+}
+
+function closeAlert() {
+    customAlert.classList.add("hidden");
+    alarm.pause();
+}
+
+/* TIMER FUNCTIONS */
 function startTM() {
     if (tmTime === 0) {
         tmTime = getInputTime();
@@ -104,7 +134,7 @@ function startTM() {
 
             if (tmTime <= 0) {
                 clearInterval(tmInterval);
-                alert("Vaqt tugadi!");
+                showAlert();
             }
         }, 1000);
     }

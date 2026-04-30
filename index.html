@@ -11,10 +11,9 @@
 <body>
 
     <!-- 🔝 REAL VAQT -->
-
-    <!-- 📦 BOX -->
     <div class="container">
         <div class="top-clock" id="clock">00:00:00</div>
+
         <div class="box">
 
             <!-- TAB -->
@@ -45,6 +44,15 @@
             </div>
 
         </div>
+    </div>
+
+    <!-- 🔊 OVOZ -->
+    <audio id="alarmSound" src="./alarm.mp3"></audio>
+
+    <!-- 🔥 CUSTOM ALERT -->
+    <div id="customAlert" class="alert hidden">
+        <p>⏰ Vaqt tugadi!</p>
+        <button onclick="closeAlert()">OK</button>
     </div>
 
     <script src="script.js"></script>
