@@ -1,10 +1,29 @@
+/* ========= HELPER ========= */
 function pad(n) {
     return n < 10 ? "0" + n : n;
 }
 
-/* 🔝 REAL VAQT */
+/* ========= ELEMENTS ========= */
 let clock = document.getElementById("clock");
 
+let swBtn = document.getElementById("swBtn");
+let tmBtn = document.getElementById("tmBtn");
+
+let stopwatchBox = document.getElementById("stopwatchBox");
+let timerBox = document.getElementById("timerBox");
+
+let stopwatch = document.getElementById("stopwatch");
+
+let hours = document.getElementById("hours");
+let minutes = document.getElementById("minutes");
+let seconds = document.getElementById("seconds");
+
+let timer = document.getElementById("timer");
+
+let alarm = document.getElementById("alarmSound");
+let customAlert = document.getElementById("customAlert");
+
+/* ========= REAL TIME CLOCK ========= */
 function updateClock() {
     let now = new Date();
     clock.innerText =
@@ -13,16 +32,10 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-/* MODE */
+/* ========= MODE ========= */
 let mode = "sw";
 
-/* ELEMENTS */
-let swBtn = document.getElementById("swBtn");
-let tmBtn = document.getElementById("tmBtn");
-let stopwatchBox = document.getElementById("stopwatchBox");
-let timerBox = document.getElementById("timerBox");
-
-/* TAB */
+/* ========= TAB SWITCH ========= */
 swBtn.onclick = () => {
     mode = "sw";
     stopwatchBox.classList.remove("hidden");
@@ -39,8 +52,7 @@ tmBtn.onclick = () => {
     swBtn.classList.remove("active");
 };
 
-/* ⏱ SEKUNDOMER */
-let stopwatch = document.getElementById("stopwatch");
+/* ========= ⏱ SEKUNDOMER ========= */
 let swTime = 0;
 let swInterval = null;
 
@@ -72,12 +84,7 @@ function resetSW() {
     updateSW();
 }
 
-/* ⏳ TIMER */
-let hours = document.getElementById("hours");
-let minutes = document.getElementById("minutes");
-let seconds = document.getElementById("seconds");
-let timer = document.getElementById("timer");
-
+/* ========= ⏳ TIMER ========= */
 let tmTime = 0;
 let tmInterval = null;
 
@@ -96,7 +103,7 @@ function updateTMDisplay(time) {
     timer.innerText = `${pad(h)}:${pad(m)}:${pad(s)}`;
 }
 
-/* LIVE UPDATE */
+/* 🔥 LIVE INPUT UPDATE */
 [hours, minutes, seconds].forEach(inp => {
     inp.addEventListener("input", () => {
         if (!tmInterval) {
@@ -106,35 +113,44 @@ function updateTMDisplay(time) {
     });
 });
 
-/* 🔊 ALERT */
-let alarm = document.getElementById("alarmSound");
-let customAlert = document.getElementById("customAlert");
-
+/* ========= 🔊 ALERT ========= */
 function showAlert() {
     customAlert.classList.remove("hidden");
+
     alarm.currentTime = 0;
+    alarm.loop = true;   // 🔥 ovoz qayta-qayta chaladi
     alarm.play();
 }
 
 function closeAlert() {
     customAlert.classList.add("hidden");
+
     alarm.pause();
+    alarm.loop = false;
 }
 
-/* TIMER FUNCTIONS */
+/* ========= TIMER CONTROL ========= */
 function startTM() {
-    if (tmTime === 0) {
-        tmTime = getInputTime();
+    // eski intervalni tozalaymiz
+    if (tmInterval) {
+        clearInterval(tmInterval);
+        tmInterval = null;
     }
 
-    if (!tmInterval && tmTime > 0) {
+    tmTime = getInputTime();
+
+    if (tmTime > 0) {
+        updateTMDisplay(tmTime);
+
         tmInterval = setInterval(() => {
             tmTime--;
             updateTMDisplay(tmTime);
 
             if (tmTime <= 0) {
                 clearInterval(tmInterval);
-                showAlert();
+                tmInterval = null;
+
+                showAlert(); // 🔥 popup + ovoz
             }
         }, 1000);
     }
@@ -149,17 +165,30 @@ function resetTM() {
     pauseTM();
     tmTime = 0;
     updateTMDisplay(0);
+    closeAlert();
 }
 
-/* UNIVERSAL */
+/* ========= UNIVERSAL BUTTONS ========= */
 function start() {
-    mode === "sw" ? startSW() : startTM();
+    if (mode === "sw") {
+        startSW();
+    } else {
+        startTM();
+    }
 }
 
 function pause() {
-    mode === "sw" ? pauseSW() : pauseTM();
+    if (mode === "sw") {
+        pauseSW();
+    } else {
+        pauseTM();
+    }
 }
 
 function reset() {
-    mode === "sw" ? resetSW() : resetTM();
+    if (mode === "sw") {
+        resetSW();
+    } else {
+        resetTM();
+    }
 }
